@@ -114,13 +114,11 @@ exports.save = function(req, res) {
 
         _movie.save(function(err, movie) {
             if (err) {
-                console.log("move save 错了错了~")
                 console.log(err)
             }
 
             if (categoryIdArr) {
                 var _len=categoryIdArr.length;
-                console.log("len:"+ categoryIdArr.length);
                 if(_len==24){
                     var categoryId = categoryIdArr;
                     Category.findById(categoryId, function(err, category) {
@@ -133,13 +131,11 @@ exports.save = function(req, res) {
                 }else{
                     for(var i=0;i<_len;i++){
                         var categoryId = categoryIdArr[i];
-                        console.log("categoryId:"+categoryId);
 
                         Category.findById(categoryId, function(err, category) {
                             category.movies.push(movie._id)
 
                             category.save(function(err, category) {
-                                console.log("i:"+i);
                             })
                         })
                     }
@@ -188,3 +184,5 @@ exports.del = function(req,res){
         });
     }
 }
+
+
